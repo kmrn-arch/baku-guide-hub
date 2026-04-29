@@ -4,10 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Caspian Dusk — Baku tourist app design tokens */
+/* GoLocal — modern startup design tokens
+   Trust blue + travel orange + safety mint */
 
 @theme inline {
-  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-display: "Sora", "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -35,83 +36,88 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-flame: var(--flame);
-  --color-gold: var(--gold);
-  --color-cream: var(--cream);
-  --color-navy: var(--navy);
+  --color-mint: var(--mint);
+  --color-orange: var(--orange);
+  --color-trust: var(--trust);
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  /* Caspian Dusk palette */
-  --navy: oklch(0.22 0.05 255);          /* deep Caspian navy */
-  --navy-deep: oklch(0.16 0.04 255);
-  --flame: oklch(0.72 0.18 45);           /* flame amber */
-  --gold: oklch(0.82 0.13 85);            /* warm gold */
-  --cream: oklch(0.97 0.02 80);           /* soft cream */
+  /* GoLocal palette */
+  --trust: oklch(0.36 0.16 265);          /* deep trust blue #1E3A8A-ish */
+  --trust-deep: oklch(0.26 0.14 265);
+  --orange: oklch(0.72 0.19 50);          /* travel orange #F97316 */
+  --orange-deep: oklch(0.62 0.21 40);
+  --mint: oklch(0.72 0.14 165);           /* safety mint #10B981 */
+  --slate-50: oklch(0.98 0.005 250);
+  --slate-100: oklch(0.96 0.008 250);
 
-  --background: oklch(0.97 0.02 80);      /* cream */
-  --foreground: oklch(0.18 0.04 255);     /* navy ink */
+  --background: oklch(0.99 0.005 250);
+  --foreground: oklch(0.20 0.04 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 255);
+  --card-foreground: oklch(0.20 0.04 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 255);
+  --popover-foreground: oklch(0.20 0.04 260);
 
-  --primary: oklch(0.22 0.05 255);        /* navy */
-  --primary-foreground: oklch(0.97 0.02 80);
-  --secondary: oklch(0.93 0.03 80);
-  --secondary-foreground: oklch(0.22 0.05 255);
-  --muted: oklch(0.93 0.02 80);
-  --muted-foreground: oklch(0.45 0.03 255);
-  --accent: oklch(0.72 0.18 45);          /* flame */
+  --primary: oklch(0.36 0.16 265);        /* trust blue */
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.96 0.008 250);
+  --secondary-foreground: oklch(0.20 0.04 260);
+  --muted: oklch(0.96 0.008 250);
+  --muted-foreground: oklch(0.48 0.03 260);
+  --accent: oklch(0.72 0.19 50);          /* orange */
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.58 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.88 0.02 80);
-  --input: oklch(0.88 0.02 80);
-  --ring: oklch(0.72 0.18 45);
+  --border: oklch(0.90 0.01 250);
+  --input: oklch(0.90 0.01 250);
+  --ring: oklch(0.72 0.19 50);
 
-  --chart-1: oklch(0.72 0.18 45);
-  --chart-2: oklch(0.22 0.05 255);
-  --chart-3: oklch(0.82 0.13 85);
-  --chart-4: oklch(0.55 0.12 200);
+  --chart-1: oklch(0.36 0.16 265);
+  --chart-2: oklch(0.72 0.19 50);
+  --chart-3: oklch(0.72 0.14 165);
+  --chart-4: oklch(0.55 0.12 220);
   --chart-5: oklch(0.45 0.08 30);
 
-  --sidebar: oklch(0.22 0.05 255);
-  --sidebar-foreground: oklch(0.97 0.02 80);
-  --sidebar-primary: oklch(0.72 0.18 45);
+  --sidebar: oklch(0.36 0.16 265);
+  --sidebar-foreground: oklch(0.99 0.005 250);
+  --sidebar-primary: oklch(0.72 0.19 50);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.28 0.05 255);
-  --sidebar-accent-foreground: oklch(0.97 0.02 80);
-  --sidebar-border: oklch(0.28 0.05 255);
-  --sidebar-ring: oklch(0.72 0.18 45);
+  --sidebar-accent: oklch(0.42 0.14 265);
+  --sidebar-accent-foreground: oklch(0.99 0.005 250);
+  --sidebar-border: oklch(0.42 0.14 265);
+  --sidebar-ring: oklch(0.72 0.19 50);
 
   /* Gradients & effects */
-  --gradient-dusk: linear-gradient(180deg, oklch(0.22 0.05 255) 0%, oklch(0.32 0.08 30) 60%, oklch(0.72 0.18 45) 100%);
-  --gradient-flame: linear-gradient(135deg, oklch(0.72 0.18 45), oklch(0.82 0.13 85));
-  --shadow-soft: 0 4px 24px -8px oklch(0.22 0.05 255 / 0.18);
-  --shadow-deep: 0 20px 50px -20px oklch(0.16 0.04 255 / 0.4);
+  --gradient-hero: linear-gradient(135deg, oklch(0.26 0.14 265) 0%, oklch(0.36 0.16 265) 50%, oklch(0.45 0.18 280) 100%);
+  --gradient-orange: linear-gradient(135deg, oklch(0.72 0.19 50), oklch(0.78 0.17 70));
+  --gradient-trust: linear-gradient(135deg, oklch(0.36 0.16 265), oklch(0.55 0.18 230));
+  --gradient-mint-soft: linear-gradient(135deg, oklch(0.95 0.04 165), oklch(0.97 0.02 180));
+  --shadow-soft: 0 4px 24px -8px oklch(0.36 0.16 265 / 0.18);
+  --shadow-card: 0 8px 30px -12px oklch(0.36 0.16 265 / 0.15);
+  --shadow-deep: 0 24px 60px -20px oklch(0.26 0.14 265 / 0.35);
+  --shadow-glow-orange: 0 0 40px oklch(0.72 0.19 50 / 0.35);
 }
 
 .dark {
-  --background: oklch(0.16 0.04 255);
-  --foreground: oklch(0.97 0.02 80);
-  --card: oklch(0.22 0.05 255);
-  --card-foreground: oklch(0.97 0.02 80);
-  --popover: oklch(0.22 0.05 255);
-  --popover-foreground: oklch(0.97 0.02 80);
-  --primary: oklch(0.72 0.18 45);
-  --primary-foreground: oklch(0.16 0.04 255);
-  --secondary: oklch(0.28 0.05 255);
-  --secondary-foreground: oklch(0.97 0.02 80);
-  --muted: oklch(0.28 0.05 255);
-  --muted-foreground: oklch(0.72 0.03 255);
-  --accent: oklch(0.82 0.13 85);
-  --accent-foreground: oklch(0.16 0.04 255);
+  --background: oklch(0.16 0.04 260);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.22 0.05 260);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.22 0.05 260);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: oklch(0.72 0.19 50);
+  --primary-foreground: oklch(0.16 0.04 260);
+  --secondary: oklch(0.28 0.05 260);
+  --secondary-foreground: oklch(0.97 0.005 250);
+  --muted: oklch(0.28 0.05 260);
+  --muted-foreground: oklch(0.72 0.02 260);
+  --accent: oklch(0.72 0.19 50);
+  --accent-foreground: oklch(0.16 0.04 260);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.82 0.13 85);
+  --ring: oklch(0.72 0.19 50);
 }
 
 @layer base {
@@ -133,21 +139,52 @@
   }
 }
 
+/* Subtle world-grid background for hero/sections */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.bg-grid-light {
+  background-image:
+    linear-gradient(to right, oklch(0.36 0.16 265 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.36 0.16 265 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* "Coming soon" ribbon for app-store buttons */
+.coming-soon-ribbon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--gradient-orange);
+  color: oklch(1 0 0);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-glow-orange);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
 /* Photo placeholder — visible "REPLACE WITH REAL PHOTO" mark */
 .photo-placeholder {
   position: relative;
   background:
     repeating-linear-gradient(
       45deg,
-      oklch(0.93 0.05 85),
-      oklch(0.93 0.05 85) 10px,
-      oklch(0.88 0.06 85) 10px,
-      oklch(0.88 0.06 85) 20px
+      oklch(0.94 0.02 250),
+      oklch(0.94 0.02 250) 10px,
+      oklch(0.90 0.02 250) 10px,
+      oklch(0.90 0.02 250) 20px
     );
   display: flex;
   align-items: center;
   justify-content: center;
-  color: oklch(0.35 0.06 30);
+  color: oklch(0.30 0.04 260);
   font-weight: 600;
   text-align: center;
   padding: 1rem;
@@ -157,10 +194,15 @@
   position: absolute;
   top: 0.5rem;
   left: 0.5rem;
-  background: oklch(0.78 0.18 75);
-  color: oklch(0.18 0.04 255);
+  background: var(--gradient-orange);
+  color: oklch(1 0 0);
   font-size: 0.7rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   letter-spacing: 0.04em;
+}
+
+/* Mockup placeholder for app screenshots — TODO(real-screenshot) */
+.screenshot-placeholder::before {
+  content: "📱 TODO(real-screenshot)";
 }
