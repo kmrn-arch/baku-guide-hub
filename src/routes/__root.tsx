@@ -10,7 +10,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <div className="font-display text-7xl text-primary">404</div>
         <h2 className="mt-4 text-xl font-semibold">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">This corner of Baku doesn't exist on our map yet.</p>
+        <p className="mt-2 text-sm text-muted-foreground">This corner of the world doesn't exist on our map yet.</p>
         <div className="mt-6">
           <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
             Back to home
