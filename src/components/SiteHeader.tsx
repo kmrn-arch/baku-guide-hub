@@ -3,7 +3,8 @@ import { useLang } from "@/i18n/LangProvider";
 import { LANGS, type Lang } from "@/i18n/dictionary";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Menu, X, Flame } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { GoLocalMark } from "@/components/gl/Visual";
 
 export function SiteHeader() {
   const { lang, setLang, t } = useLang();
@@ -17,31 +18,29 @@ export function SiteHeader() {
   }, []);
 
   const links: { to: string; key: string }[] = [
-    { to: "/", key: "nav.home" },
+    { to: "/features", key: "nav.features" },
+    { to: "/safety", key: "nav.safety" },
+    { to: "/partners", key: "nav.partners" },
+    { to: "/pricing", key: "nav.pricing" },
     { to: "/about", key: "nav.about" },
-    { to: "/tourist-info", key: "nav.tourist" },
-    { to: "/transport", key: "nav.transport" },
-    { to: "/emergency", key: "nav.emergency" },
+    { to: "/demo/baku", key: "nav.demo" },
   ];
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-[oklch(0.97_0.02_80_/_0.85)] border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-background/85 border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2 font-display text-xl tracking-tight">
-          <span className="w-8 h-8 rounded-md grid place-items-center text-primary-foreground" style={{ background: "var(--gradient-flame)" }}>
-            <Flame className="w-4 h-4" />
-          </span>
-          <span>Baku<span className="text-accent">.</span>guide</span>
+          <GoLocalMark className="h-8 w-8" />
+          <span className="font-semibold">Go<span className="text-accent">Local</span></span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1 text-sm">
+        <nav className="hidden lg:flex items-center gap-1 text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               className="px-3 py-2 rounded-md hover:bg-secondary transition-colors"
               activeProps={{ className: "px-3 py-2 rounded-md bg-secondary font-medium" }}
-              activeOptions={{ exact: l.to === "/" }}
             >
               {t(l.key)}
             </Link>
@@ -62,25 +61,29 @@ export function SiteHeader() {
             ))}
           </select>
 
+          <Link
+            to="/download"
+            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg bg-[var(--gradient-orange)] text-accent-foreground hover:opacity-90 shadow-[var(--shadow-glow-orange)]"
+          >
+            {t("nav.download")}
+          </Link>
+
           {signedIn ? (
-            <Link to="/profile" className="hidden md:inline-flex px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground hover:opacity-90">
+            <Link to="/profile" className="hidden md:inline-flex px-3 py-1.5 text-sm rounded-md border border-border hover:bg-secondary">
               {t("nav.profile")}
             </Link>
-          ) : (
-            <Link to="/auth" className="hidden md:inline-flex px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground hover:opacity-90">
-              {t("nav.signin")}
-            </Link>
-          )}
+          ) : null}
 
-          <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+          <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-card">
+        <div className="lg:hidden border-t border-border bg-card">
           <nav className="flex flex-col p-2">
+            <Link to="/" onClick={() => setOpen(false)} className="px-3 py-3 rounded-md hover:bg-secondary">{t("nav.home")}</Link>
             {links.map((l) => (
               <Link
                 key={l.to}
@@ -91,12 +94,13 @@ export function SiteHeader() {
                 {t(l.key)}
               </Link>
             ))}
+            <Link to="/contact" onClick={() => setOpen(false)} className="px-3 py-3 rounded-md hover:bg-secondary">{t("nav.contact")}</Link>
             <Link
-              to={signedIn ? "/profile" : "/auth"}
-              className="mt-2 px-3 py-3 rounded-md bg-primary text-primary-foreground text-center"
+              to="/download"
+              className="mt-2 px-3 py-3 rounded-lg bg-[var(--gradient-orange)] text-accent-foreground text-center font-semibold"
               onClick={() => setOpen(false)}
             >
-              {signedIn ? t("nav.profile") : t("nav.signin")}
+              {t("nav.download")}
             </Link>
           </nav>
         </div>
@@ -108,27 +112,37 @@ export function SiteHeader() {
 export function SiteFooter() {
   const { t } = useLang();
   return (
-    <footer className="mt-24 border-t border-border bg-primary text-primary-foreground">
-      <div className="max-w-6xl mx-auto px-4 py-10 grid gap-6 md:grid-cols-3">
-        <div>
-          <div className="font-display text-2xl">Baku<span className="text-accent">.</span>guide</div>
-          <p className="opacity-80 mt-2 text-sm">{t("footer.tagline")}</p>
+    <footer className="mt-24 bg-primary text-primary-foreground">
+      <div className="max-w-7xl mx-auto px-4 py-14 grid gap-8 md:grid-cols-5">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2 font-display text-2xl">
+            <GoLocalMark className="h-9 w-9" />
+            <span className="font-semibold">Go<span className="text-accent">Local</span></span>
+          </div>
+          <p className="opacity-80 mt-3 text-sm max-w-xs">{t("footer.tagline")}</p>
         </div>
-        <div className="text-sm space-y-1">
-          <div className="opacity-60 mb-1 uppercase tracking-wider text-xs">Public</div>
+        <div className="text-sm space-y-2">
+          <div className="opacity-60 mb-2 uppercase tracking-wider text-xs">{t("footer.product")}</div>
+          <Link to="/features" className="block opacity-90 hover:opacity-100">{t("nav.features")}</Link>
+          <Link to="/safety" className="block opacity-90 hover:opacity-100">{t("nav.safety")}</Link>
+          <Link to="/pricing" className="block opacity-90 hover:opacity-100">{t("nav.pricing")}</Link>
+          <Link to="/download" className="block opacity-90 hover:opacity-100">{t("nav.download")}</Link>
+          <Link to="/demo/baku" className="block opacity-90 hover:opacity-100">{t("nav.demo")}</Link>
+        </div>
+        <div className="text-sm space-y-2">
+          <div className="opacity-60 mb-2 uppercase tracking-wider text-xs">{t("footer.company")}</div>
           <Link to="/about" className="block opacity-90 hover:opacity-100">{t("nav.about")}</Link>
-          <Link to="/tourist-info" className="block opacity-90 hover:opacity-100">{t("nav.tourist")}</Link>
-          <Link to="/transport" className="block opacity-90 hover:opacity-100">{t("nav.transport")}</Link>
-          <Link to="/emergency" className="block opacity-90 hover:opacity-100">{t("nav.emergency")}</Link>
+          <Link to="/partners" className="block opacity-90 hover:opacity-100">{t("nav.partners")}</Link>
+          <Link to="/contact" className="block opacity-90 hover:opacity-100">{t("nav.contact")}</Link>
         </div>
-        <div className="text-sm space-y-1">
-          <div className="opacity-60 mb-1 uppercase tracking-wider text-xs">Account</div>
-          <Link to="/auth" className="block opacity-90 hover:opacity-100">{t("nav.signin")}</Link>
-          <Link to="/browse" className="block opacity-90 hover:opacity-100">{t("nav.browse")}</Link>
+        <div className="text-sm space-y-2">
+          <div className="opacity-60 mb-2 uppercase tracking-wider text-xs">{t("footer.legal")}</div>
+          <Link to="/legal/privacy" className="block opacity-90 hover:opacity-100">{t("footer.privacy")}</Link>
+          <Link to="/legal/terms" className="block opacity-90 hover:opacity-100">{t("footer.terms")}</Link>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-xs text-center opacity-60">
-        © {new Date().getFullYear()} Baku.guide
+      <div className="border-t border-white/10 py-5 text-xs text-center opacity-60">
+        © {new Date().getFullYear()} GoLocal. {t("footer.rights")}
       </div>
     </footer>
   );

@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LangProvider";
+import { SectionHeading } from "@/components/gl/UI";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Baku — history, culture, when to visit | Baku.guide" },
-      { name: "description", content: "An introduction to Baku, Azerbaijan: history, culture, and the best time of year to visit." },
+      { title: "About — GoLocal" },
+      { name: "description", content: "GoLocal is built by travelers, for travelers. Our mission, story, and roadmap from Baku to the world." },
+      { property: "og:title", content: "About GoLocal — Built by travelers, for travelers" },
     ],
   }),
   component: AboutPage,
@@ -13,38 +15,43 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   const { t } = useLang();
-
   return (
-    <article className="max-w-3xl mx-auto px-4 py-16">
-      <header className="mb-10">
-        <div className="text-xs uppercase tracking-widest text-accent font-semibold">Public · No login</div>
-        <h1 className="font-display text-5xl mt-2">{t("about.title")}</h1>
-        <p className="text-lg text-muted-foreground mt-4">{t("about.lead")}</p>
-      </header>
+    <div className="max-w-4xl mx-auto px-4 py-20">
+      <SectionHeading kicker={t("gl.about.kicker")} title={t("gl.about.title")} />
 
-      <div className="aspect-[16/9] rounded-xl overflow-hidden mb-10 bg-secondary">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Baku_old_city.jpg/1280px-Baku_old_city.jpg"
-          alt="Baku Old City"
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+      <div className="mt-12 space-y-12">
+        <section>
+          <h2 className="font-display text-2xl border-b border-border pb-3 mb-4">{t("gl.about.mission.title")}</h2>
+          <p className="text-foreground/90 leading-relaxed">{t("gl.about.mission.body")}</p>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl border-b border-border pb-3 mb-4">{t("gl.about.scale.title")}</h2>
+          <p className="text-foreground/90 leading-relaxed">{t("gl.about.scale.body")}</p>
+          <div className="mt-6 rounded-2xl border border-border bg-card p-6">
+            <div className="text-xs uppercase tracking-widest text-accent font-bold mb-3">Roadmap</div>
+            <ol className="space-y-2 text-sm">
+              <li>📍 <strong>Baku</strong> — first launch city (live demo available)</li>
+              <li>🌍 Tbilisi · Istanbul · Tashkent — next 12 months</li>
+              <li>🚀 Global expansion — year two and beyond</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="font-display text-2xl border-b border-border pb-3 mb-4">{t("gl.about.team.title")}</h2>
+          <p className="text-foreground/90 leading-relaxed">{t("gl.about.team.body")}</p>
+          <div className="mt-6 grid sm:grid-cols-3 gap-4">
+            {[1,2,3].map((i) => (
+              <div key={i} className="rounded-2xl border border-border bg-card p-5 text-center">
+                <div className="w-20 h-20 mx-auto rounded-full bg-secondary photo-placeholder text-[10px]">{}</div>
+                <div className="mt-3 font-semibold">Founder {i}</div>
+                <div className="text-xs text-muted-foreground">TODO(real-photo)</div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
-
-      <section className="mb-10">
-        <h2 className="font-display text-2xl border-b border-border pb-2 mb-3">{t("about.history.title")}</h2>
-        <p className="text-foreground/90 leading-relaxed">{t("about.history.body")}</p>
-      </section>
-
-      <section className="mb-10">
-        <h2 className="font-display text-2xl border-b border-border pb-2 mb-3">{t("about.culture.title")}</h2>
-        <p className="text-foreground/90 leading-relaxed">{t("about.culture.body")}</p>
-      </section>
-
-      <section>
-        <h2 className="font-display text-2xl border-b border-border pb-2 mb-3">{t("about.when.title")}</h2>
-        <p className="text-foreground/90 leading-relaxed">{t("about.when.body")}</p>
-      </section>
-    </article>
+    </div>
   );
 }

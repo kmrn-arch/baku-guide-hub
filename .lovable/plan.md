@@ -1,81 +1,137 @@
-# Baku Tourist App — v1 Rebuild Plan
 
-A clean rebuild of the Baku travel companion. Public tourist info works without login or internet (after first visit). Account-based features (browse places, reviews, favorites) sit behind auth. Real photos wherever possible — every AI/placeholder image gets a visible "REPLACE WITH REAL PHOTO" mark so you can swap them later.
+# GoLocal v2 — Startup landing site (hybrid with Baku live demo)
 
-## Visual direction (surprise pick)
+## Concept
 
-**"Caspian Dusk"** — inspired by Baku's seafront at golden hour and the Flame Towers.
-- Deep Caspian navy background with warm amber/flame accents
-- Soft cream surfaces for content cards
-- Editorial typography: a tall display serif for headings, clean sans for body
-- Photo-forward layouts (large hero images, generous whitespace)
-- Subtle gold dividers, no heavy shadows
+The site becomes **GoLocal**, a startup marketing/promo site for a smart travel-assistant app. The existing Baku tourist pages stay and are presented as a **"Live Demo — Baku"** so visitors can experience the product, not just read about it. Strong academic/investor presentation feel, fully in EN / RU / AZ / TR.
 
-If you dislike it after seeing the homepage, we can swap palettes in one pass.
+## Visual direction
 
-## Site structure
+Modern startup look, mobile-first, high trust:
 
-**Public (no login, works offline after first load)**
-- `/` — Home: hero, "About Baku" intro, language switcher, top 6 landmark cards, quick links to emergency + transport
-- `/about` — About Baku (city intro, history, culture, when to visit)
-- `/emergency` — Police, ambulance, fire, tourist police, embassies. Big tap-to-call buttons.
-- `/tourist-info` — Top tourist places (read-only cards, no reviews)
-- `/transport` — Districts overview + metro lines + main bus routes + offline map (image + downloadable PDF)
+- **Primary**: deep trust-blue `#1E3A8A` (oklch ~ navy)
+- **Secondary**: clean white / very light slate
+- **Accent**: vibrant travel-orange `#F97316` for CTAs, plus a soft mint `#10B981` for "trust/safety" pills
+- Big rounded cards, soft shadows, generous whitespace
+- Hero gets a subtle world-grid + phone mockup motif (CSS/SVG, no AI imagery)
+- Real photos where we already have them (Baku landmarks); for product/app screens we use **device-frame mockups with simple SVG content** (clearly marked `TODO(real-screenshot)` where a real app screen is needed later)
+- Fonts: keep Inter for body, switch display to **Sora** (modern startup vibe) — replaces Fraunces
 
-**Gated (login required, redirects to `/auth?next=...`)**
-- `/browse` — Full place catalog with filters
-- `/place/:id` — Place detail with reviews
-- `/favorites` — Saved places
-- `/profile` — Account settings
+## Site map
 
-**Auth**
-- `/auth` — Email + password (Lovable Cloud), with Google sign-in
-
-## Languages
-
-EN, RU, AZ, TR — language switcher in header, persists per user. All public page copy translated. UI strings via a light i18n setup (no heavy library).
-
-## Imagery strategy
-
-1. Use real, openly-licensed Baku photos where I can source them (Wikimedia Commons, Unsplash) for major landmarks: Flame Towers, Heydar Aliyev Center, Old City (Icherisheher), Maiden Tower, Baku Boulevard, Fountains Square, Nizami Street, Heydar Mosque.
-2. For places without a confirmed real photo, render a clearly-marked placeholder card with a yellow "📷 REPLACE WITH REAL PHOTO" ribbon and a TODO comment in code listing the place name, so you can drop replacements in later.
-3. No AI-generated faux-photos of real landmarks.
-
-## Offline behavior
-
-- Public pages and emergency data hardcoded in source → instant load, available offline once cached by the browser
-- Service worker caches public routes, images, and the PDF map
-- Downloadable assets: `baku-pocket-guide.pdf` and `baku-metro-map.jpg`
-- Migration to Lovable Cloud DB deferred to v2
-
-## Tech notes (for reference)
-
-- TanStack Start + Tailwind, file-based routes under `src/routes/`
-- Lovable Cloud for auth (email/password + Google) and later for places/reviews DB
-- Auth gate via `_authenticated` pathless layout route with `beforeLoad` redirect to `/auth?next=...`
-- i18n: lightweight context + JSON dictionaries per language in `src/i18n/`
-- Service worker registered in root for offline caching of public routes
-- Custom theme tokens in `src/styles.css` (Caspian navy, flame amber, cream)
-
-## What ships in v1
-
-```text
-Public           Auth gate            Account features
-─────────        ──────────           ─────────────────
-/                /auth?next=...   →   /browse
-/about                                /place/:id
-/emergency                            /favorites
-/tourist-info                         /profile
-/transport
-  └─ offline map (img + PDF)
+Public marketing routes (new):
+```
+/                  Hero · Problem · Solution snippet · Features highlights · How it works · Trust · Testimonials · Download CTA
+/features          Full feature grid + deep-dive blocks
+/safety            "No scams. No surprises." trust page
+/partners          Become a partner + inquiry form
+/pricing           Free vs Premium
+/about             About GoLocal (mission, team placeholder, scalability)
+/contact           Contact form + email/socials
+/download          Stores buttons (Coming Soon) + waitlist email capture
+/legal/privacy     Privacy policy (placeholder text)
+/legal/terms       Terms (placeholder text)
 ```
 
-4-language switcher · Caspian Dusk theme · Real photos with marked TODOs for swaps · Service-worker offline cache.
+Live demo routes (kept from current site, relabeled in nav as "Live Demo · Baku"):
+```
+/demo/baku         Demo landing — current home content moved here
+/demo/baku/about
+/demo/baku/emergency
+/demo/baku/transport
+/demo/baku/places          (was /tourist-info)
+/demo/baku/browse          (auth-gated)
+/demo/baku/place/:id       (auth-gated)
+/demo/baku/profile         (auth-gated)
+/auth                      (kept)
+```
 
-## Out of scope for v1 (planned for v2 after BMC review)
+Old paths (`/about`, `/emergency`, `/transport`, `/tourist-info`, `/browse`, `/place/:id`, `/profile`) are redirected to the new `/demo/baku/*` equivalents to avoid breaking links.
 
-- Itineraries / day planner
-- Admin panel + DB-backed emergency/transport data
-- Reviews moderation, ratings aggregation
-- Multi-city expansion (Tbilisi, Istanbul, etc.)
-- Price guide, "how it works", roadmap sections from the previous build
+## Page content blueprints (matching the master prompt)
+
+**Home (`/`)** — sections in order:
+1. Hero — headline "Travel Smart. Travel Safe. Travel Local." + 3 CTAs (Download / Get Started / Explore Features). Right side: phone mockup with map UI.
+2. Problem strip — 6 icon cards (language, scams, overcharging, getting lost, finding services, unreliable info)
+3. Solution band — "Introducing GoLocal" with 4 trust pillars
+4. Features preview — 6 most important features as cards, link to `/features`
+5. Safety & trust — quote-style block linking to `/safety`
+6. How it works — 4 numbered steps (Search → Compare → Choose → Enjoy)
+7. Live Demo CTA — big card: "See it in action — try our Baku demo →" links to `/demo/baku`
+8. Testimonials — 3 quote cards (clearly marked sample data)
+9. Rewards teaser — stars & discounts
+10. Download CTA — store buttons (Coming Soon badges) + waitlist email field
+11. Footer (already exists, will be expanded)
+
+**Features (`/features`)** — full 12-feature grid grouped into Discover / Navigate / Stay Safe / Save Money.
+
+**Safety (`/safety`)** — verified businesses, transparent pricing, real reviews, data privacy, secure platform — each with explainer block.
+
+**Partners (`/partners`)** — value props for Hotels / Restaurants / Taxis / Tours, then inquiry form (business name, type, contact name, email, phone, city, message). Submits to DB.
+
+**Pricing (`/pricing`)** — Free vs Premium two-card layout, FAQ accordion.
+
+**About (`/about`)** — Mission, story, "Starting in Baku, scaling globally" map graphic, founder placeholder cards.
+
+**Contact (`/contact`)** — form (name, email, subject, message) + email/socials. Submits to DB.
+
+**Download (`/download`)** — App Store / Google Play buttons styled real but with "Coming Soon" ribbon; clicking opens waitlist modal. Waitlist email stored in DB.
+
+## Backend (Lovable Cloud)
+
+Three new tables, all with RLS:
+
+- `partner_inquiries` — id, business_name, business_type, contact_name, email, phone, city, message, created_at
+- `contact_messages` — id, name, email, subject, message, created_at
+- `waitlist_emails` — id, email (unique), language, source, created_at
+
+RLS approach (since these are public submissions and there's no admin role yet):
+- `INSERT` policy: allow anon + authenticated to insert (this is required so the public forms work)
+- `SELECT` policy: deny to public/anon; only allow rows owned by an admin role. We'll create a `user_roles` table + `app_role` enum + `has_role()` security-definer function per the user-roles best practice, so when an admin account is added in v2, viewing submissions just works. For now no rows are readable from the client — you'll view submissions via the Cloud DB viewer.
+
+Forms use Zod validation client-side and call `createServerFn` handlers that re-validate and insert through the admin client. This keeps the rate-limit/abuse surface controllable later (we can add per-IP throttling without rewriting forms).
+
+## i18n
+
+All new copy added to `src/i18n/dictionary.ts` in EN / RU / AZ / TR. New key namespaces: `gl.hero.*`, `gl.problem.*`, `gl.solution.*`, `gl.features.*`, `gl.howItWorks.*`, `gl.trust.*`, `gl.testimonials.*`, `gl.rewards.*`, `gl.partners.*`, `gl.pricing.*`, `gl.download.*`, `gl.about.*`, `gl.contact.*`, plus updated `nav.*` and `footer.*`.
+
+Demo (Baku) keys are renamed/prefixed `demo.*` but the existing translations are reused.
+
+## Header / footer changes
+
+- Logo becomes **GoLocal** (compass + pin SVG mark, orange→blue gradient)
+- Nav: Features · Safety · Partners · Pricing · About · **Live Demo** · Download (CTA button)
+- Footer: 4 columns — Product · Company · Legal · Connect (socials placeholders)
+
+## Files added / changed
+
+New routes (each with own `head()` meta):
+- `src/routes/index.tsx` — replaced with GoLocal landing
+- `src/routes/features.tsx`, `safety.tsx`, `partners.tsx`, `pricing.tsx`, `download.tsx`, `contact.tsx`
+- `src/routes/about.tsx` — replaced (old About moves to demo)
+- `src/routes/legal.privacy.tsx`, `src/routes/legal.terms.tsx`
+- `src/routes/demo.baku.tsx` (layout with Outlet)
+- `src/routes/demo.baku.index.tsx` (current home content)
+- `src/routes/demo.baku.about.tsx`, `.emergency.tsx`, `.transport.tsx`, `.places.tsx`
+- `src/routes/_authenticated.demo.baku.browse.tsx`, `.place.$placeId.tsx`, `.profile.tsx`
+- Redirect routes for old paths
+
+New components:
+- `src/components/gl/Hero.tsx`, `PhoneMockup.tsx`, `FeatureCard.tsx`, `StepCard.tsx`, `TestimonialCard.tsx`, `WaitlistForm.tsx`, `PartnerForm.tsx`, `ContactForm.tsx`, `StoreButtons.tsx`, `SectionHeading.tsx`
+- Updated `SiteHeader.tsx` and `SiteFooter.tsx`
+
+Server functions:
+- `src/server/forms.functions.ts` with `submitWaitlist`, `submitPartnerInquiry`, `submitContactMessage` (Zod-validated, insert via admin client)
+
+Style:
+- `src/styles.css` — new color tokens (trust blue + orange + mint), Sora font import, refreshed shadows; old Caspian Dusk vars kept under `.demo` scope so the demo section keeps its current look.
+
+## Out of scope for this v1
+
+- Real app screenshots (mockups marked `TODO(real-screenshot)`)
+- Real founder photos / bios (placeholder cards marked)
+- Admin dashboard for viewing form submissions (data viewable via Cloud DB tab)
+- Email notifications on submission (can add Resend later)
+- Service worker / PWA caching upgrade (current Baku demo offline messaging stays as-is)
+
+Approve and I'll build it.

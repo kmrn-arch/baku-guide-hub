@@ -11,11 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransportRouteImport } from './routes/transport'
 import { Route as TouristInfoRouteImport } from './routes/tourist-info'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as EmergencyRouteImport } from './routes/emergency'
+import { Route as DownloadRouteImport } from './routes/download'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as DemoBakuRouteImport } from './routes/demo.baku'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated.profile'
 import { Route as AuthenticatedBrowseRouteImport } from './routes/_authenticated.browse'
 import { Route as AuthenticatedPlacePlaceIdRouteImport } from './routes/_authenticated.place.$placeId'
@@ -30,9 +39,39 @@ const TouristInfoRoute = TouristInfoRouteImport.update({
   path: '/tourist-info',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturesRoute = FeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmergencyRoute = EmergencyRouteImport.update({
   id: '/emergency',
   path: '/emergency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadRoute = DownloadRouteImport.update({
+  id: '/download',
+  path: '/download',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -52,6 +91,21 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoBakuRoute = DemoBakuRouteImport.update({
+  id: '/demo/baku',
+  path: '/demo/baku',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
@@ -75,22 +129,40 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/download': typeof DownloadRoute
   '/emergency': typeof EmergencyRoute
+  '/features': typeof FeaturesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/safety': typeof SafetyRoute
   '/tourist-info': typeof TouristInfoRoute
   '/transport': typeof TransportRoute
   '/browse': typeof AuthenticatedBrowseRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/demo/baku': typeof DemoBakuRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/place/$placeId': typeof AuthenticatedPlacePlaceIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/download': typeof DownloadRoute
   '/emergency': typeof EmergencyRoute
+  '/features': typeof FeaturesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/safety': typeof SafetyRoute
   '/tourist-info': typeof TouristInfoRoute
   '/transport': typeof TransportRoute
   '/browse': typeof AuthenticatedBrowseRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/demo/baku': typeof DemoBakuRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/place/$placeId': typeof AuthenticatedPlacePlaceIdRoute
 }
 export interface FileRoutesById {
@@ -99,11 +171,20 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/download': typeof DownloadRoute
   '/emergency': typeof EmergencyRoute
+  '/features': typeof FeaturesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/safety': typeof SafetyRoute
   '/tourist-info': typeof TouristInfoRoute
   '/transport': typeof TransportRoute
   '/_authenticated/browse': typeof AuthenticatedBrowseRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/demo/baku': typeof DemoBakuRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/_authenticated/place/$placeId': typeof AuthenticatedPlacePlaceIdRoute
 }
 export interface FileRouteTypes {
@@ -112,22 +193,40 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/contact'
+    | '/download'
     | '/emergency'
+    | '/features'
+    | '/partners'
+    | '/pricing'
+    | '/safety'
     | '/tourist-info'
     | '/transport'
     | '/browse'
     | '/profile'
+    | '/demo/baku'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/place/$placeId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/auth'
+    | '/contact'
+    | '/download'
     | '/emergency'
+    | '/features'
+    | '/partners'
+    | '/pricing'
+    | '/safety'
     | '/tourist-info'
     | '/transport'
     | '/browse'
     | '/profile'
+    | '/demo/baku'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/place/$placeId'
   id:
     | '__root__'
@@ -135,11 +234,20 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/contact'
+    | '/download'
     | '/emergency'
+    | '/features'
+    | '/partners'
+    | '/pricing'
+    | '/safety'
     | '/tourist-info'
     | '/transport'
     | '/_authenticated/browse'
     | '/_authenticated/profile'
+    | '/demo/baku'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/_authenticated/place/$placeId'
   fileRoutesById: FileRoutesById
 }
@@ -148,9 +256,18 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  ContactRoute: typeof ContactRoute
+  DownloadRoute: typeof DownloadRoute
   EmergencyRoute: typeof EmergencyRoute
+  FeaturesRoute: typeof FeaturesRoute
+  PartnersRoute: typeof PartnersRoute
+  PricingRoute: typeof PricingRoute
+  SafetyRoute: typeof SafetyRoute
   TouristInfoRoute: typeof TouristInfoRoute
   TransportRoute: typeof TransportRoute
+  DemoBakuRoute: typeof DemoBakuRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -169,11 +286,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TouristInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/features': {
+      id: '/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof FeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/emergency': {
       id: '/emergency'
       path: '/emergency'
       fullPath: '/emergency'
       preLoaderRoute: typeof EmergencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/download': {
+      id: '/download'
+      path: '/download'
+      fullPath: '/download'
+      preLoaderRoute: typeof DownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -202,6 +361,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/baku': {
+      id: '/demo/baku'
+      path: '/demo/baku'
+      fullPath: '/demo/baku'
+      preLoaderRoute: typeof DemoBakuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/profile': {
@@ -249,9 +429,18 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  ContactRoute: ContactRoute,
+  DownloadRoute: DownloadRoute,
   EmergencyRoute: EmergencyRoute,
+  FeaturesRoute: FeaturesRoute,
+  PartnersRoute: PartnersRoute,
+  PricingRoute: PricingRoute,
+  SafetyRoute: SafetyRoute,
   TouristInfoRoute: TouristInfoRoute,
   TransportRoute: TransportRoute,
+  DemoBakuRoute: DemoBakuRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
